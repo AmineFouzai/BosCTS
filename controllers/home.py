@@ -7,11 +7,13 @@ import configparser
 
 class DNSHandler(tornado.web.RequestHandler):
 	def get(self):
+		self.set_header("Access-Control-Allow-Origin", "*")
 		conf=configparser.ConfigParser()
 		conf.read('DNS.ini')
 		self.write(tornado.escape.json_encode({"DNS":conf.get('DNSSection','host')}))
 	
 	def post(self):
+		self.set_header("Access-Control-Allow-Origin", "*")
 		data=tornado.escape.json_decode(self.request.body)
 		print(data)
 		conf=configparser.ConfigParser()
